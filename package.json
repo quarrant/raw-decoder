@@ -1,0 +1,51 @@
+{
+  "name": "raw-decoder",
+  "version": "0.0.1",
+  "description": "Raw Decoder",
+  "author": "quarrant",
+  "license": "MIT",
+  "homepage": "https://github.com/quarrant/raw-decoder#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quarrant/raw-decoder.git"
+  },
+  "bugs": {
+    "url": "https://github.com/quarrant/raw-decoder/issues"
+  },
+  "scripts": {
+    "test": "jest",
+    "build": "rm -rf lib && yarn build:esm5 && yarn build:esm2015 && yarn build:esm2017",
+    "build:esm5": "tsc --project tsconfig.esm5.json",
+    "build:esm2015": "tsc --project tsconfig.esm2015.json",
+    "build:esm2017": "tsc --project tsconfig.json",
+    "prepublishOnly": "yarn build"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.0.1",
+    "ts-jest": "^26.5.5",
+    "jest": "^26.6.3",
+    "typescript": "^4.2.4"
+  },
+  "resolutions": {
+    "json-schema": "^0.4.0"
+  },
+  "jest": {
+    "modulePaths": [
+      "<rootDir>/src/"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.ts?$": "ts-jest"
+    },
+    "testPathIgnorePatterns": [
+      "\\.snap$",
+      "<rootDir>/node_modules/"
+    ],
+    "resetMocks": false
+  }
+}
