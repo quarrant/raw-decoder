@@ -83,4 +83,17 @@ describe('RawDecoder', () => {
     const decoder = new RawDecoder(input);
     expect(decoder.asJSON()).toEqual(result);
   });
+
+  it.each([
+    [{}, undefined, {}],
+    [null, {}, {}],
+    [undefined, {}, {}],
+    [{ a: 'a' }, undefined, { a: 'a' }],
+    [[{ a: 'a' }], undefined, {}],
+    [NaN, { a: 'a' }, { a: 'a' }],
+  ])('asObject(%p) is %p', (input, defaultValue, result) => {
+    // @ts-ignore
+    const decoder = new RawDecoder(input);
+    expect(decoder.asObject(defaultValue)).toEqual(result);
+  })
 });

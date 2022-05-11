@@ -12,6 +12,7 @@
   "bugs": {
     "url": "https://github.com/quarrant/raw-decoder/issues"
   },
+  "main": "src/raw-decoder.ts",
   "scripts": {
     "test": "jest",
     "build": "rm -rf lib && yarn build:esm5 && yarn build:esm2015 && yarn build:esm2017",

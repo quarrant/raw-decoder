@@ -1,13 +1,13 @@
 type ArrayItemType<ArrayType> = ArrayType extends readonly (infer ElementType)[] ? ElementType : never;
 
 export class RawDecoder<Raw> {
-  constructor(private readonly raw: Raw | undefined) {}
+  constructor(private readonly raw: Raw | undefined) { }
 
   public getProperty<Property extends keyof NonNullable<Raw>>(
     property: Property,
   ): RawDecoder<NonNullable<Raw>[Property]> {
     if (!(this.raw as any)?.hasOwnProperty(property)) {
-      console.warn(`[RawDecoder/getProperty] property '${property}' not found in raw '${JSON.stringify(this.raw)}'`);
+      console.warn(`[RawDecoder/getProperty] property '${String(property)}' not found in raw '${JSON.stringify(this.raw)}'`);
     }
 
     return new RawDecoder(this.raw?.[property]);
@@ -65,5 +65,13 @@ export class RawDecoder<Raw> {
     }
 
     return undefined;
+  }
+
+  public asObject(defaultValue?: Record<string, any>) {
+    if (this.raw === null || typeof this.raw === 'undefined' || Array.isArray(this.raw) || Number.isNaN(this.raw)) {
+      return Object(defaultValue);
+    }
+
+    return Object(this.raw);
   }
 }
